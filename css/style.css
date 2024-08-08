@@ -3,6 +3,11 @@
 @import "footer.css";
 @import "main.css";
 
+:root {
+  --button-primary: #fe6f0f;
+  --button-hover: #ad4500;
+}
+
 body {
   font-family: "Pretendard Variable", Pretendard, -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
