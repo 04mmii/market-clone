@@ -52,17 +52,22 @@ main {
   position: fixed;
   bottom: 120px;
   right: 20px;
-  background-color: #fe6f0f;
+  background-color: var(--button-primary);
   color: white;
   padding: 10px 15px;
   border-radius: 25px;
   font-weight: bold;
   font-size: 15px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 24px 0px;
+  transition: all 1s ease-in-out;
+  cursor: pointer;
+}
+.write-btn:hover {
+  background-color: var(--button-hover);
 }
 
 .media-info-msg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -70,12 +75,11 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1;
   background: #ffb663d3;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .media-info-msg {
-    opacity: 0;
+    display: none;
   }
 }
