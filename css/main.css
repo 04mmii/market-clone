@@ -1,5 +1,6 @@
 main {
   padding: 30px 20px 30px 20px;
+  box-sizing: border-box;
 }
 
 /* 아이템리스트 */
@@ -74,7 +75,7 @@ main {
   background: #ffb663d3;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 430px) {
   .media-info-msg {
     opacity: 0;
   }
