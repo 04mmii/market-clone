@@ -1,12 +1,12 @@
 main {
-  padding: 30px 20px 30px 20px;
+  padding: 30px 20px 100px 20px;
 }
 
 /* 아이템리스트 */
 
 .items-list {
   display: flex;
-  justify-content: left;
+  justify-content: flex-start;
   align-items: center;
   border-bottom: 1px solid #ededef;
   margin-left: 10px;
@@ -22,9 +22,11 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .item-list__img img {
-  width: 80px;
+  width: 100%;
+  height: 100%;
 }
 
 .item-list__info {
@@ -61,6 +63,7 @@ main {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 24px 0px;
   transition: all 1s ease-in-out;
   cursor: pointer;
+  text-decoration: none;
 }
 .write-btn:hover {
   background-color: var(--button-hover);
