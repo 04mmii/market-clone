@@ -19,7 +19,7 @@ const handleSubmit = async (e) => {
 
   if (checkPassword()) {
     const res = await fetch("/signup", {
-      mathod: "post",
+      method: "post",
       body: formData,
     });
 
