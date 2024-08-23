@@ -1,6 +1,36 @@
 <script>
+  import { onMount } from "svelte";
+  import { getDatabase, ref, onValue } from "firebase/database";
+  import Nav from "../components/Nav.svelte";
+
   let hour = new Date().getHours();
   let min = new Date().getMinutes();
+
+  $: items = [];
+
+  const calcTime = (timestamp) => {
+    //한국시간 UTC+9
+    const curTime = new Date().getTime() - 9 * 60 * 60 * 1000;
+    const time = new Date(curTime - timestamp);
+    const hour = time.getHours();
+    const minute = time.getMinutes();
+    const second = time.getSeconds();
+
+    if (hour > 0) return `${hour}시간 전`;
+    else if (minute > 0) return `${minute}분 전`;
+    else if (second > 0) return `${second}초 전`;
+    else return "방금 전";
+  };
+
+  const db = getDatabase();
+  const itemsRef = ref(db, "items/");
+
+  onMount(() => {
+    onValue(itemsRef, (snapshot) => {
+      const data = snapshot.val();
+      items = Object.values(data).reverse();
+    });
+  });
 </script>
 
 <header>
@@ -26,43 +56,26 @@
 </header>
 
 <main>
+  {#each items as item}
+    <div class="items-list">
+      <div class="item-list__img">
+        <img src={item.imgUrl} alt={item.title} />
+      </div>
+      <div class="item-list__info">
+        <div class="item-list__info-title">{item.title}</div>
+        <div class="item-list__info-meta">
+          {item.place}
+          {calcTime(item.insertAt)}
+        </div>
+        <div class="item-list__info-price">{item.price}</div>
+        <div>{item.description}</div>
+      </div>
+    </div>
+  {/each}
   <a class="write-btn" href="#/write">+ 글쓰기</a>
 </main>
 <!-- //main -->
 
-<footer>
-  <div class="footer-block">
-    <div class="footer-icons">
-      <div class="footer-icons__img">
-        <img src="assets/home.svg" alt="home" />
-      </div>
-      <div>홈</div>
-    </div>
-    <div class="footer-icons">
-      <div class="footer-icons__img">
-        <img src="assets/docu.svg" alt="docu" />
-      </div>
-      <div>동네생활</div>
-    </div>
-    <div class="footer-icons">
-      <div class="footer-icons__img">
-        <img src="assets/location.svg" alt="location" />
-      </div>
-      <div>내근처</div>
-    </div>
-    <div class="footer-icons">
-      <div class="footer-icons__img">
-        <img src="assets/chat.svg" alt="chat" />
-      </div>
-      <div>채팅</div>
-    </div>
-    <div class="footer-icons">
-      <div class="footer-icons__img">
-        <img src="assets/user.svg" alt="user" />
-      </div>
-      <div>나의 당근</div>
-    </div>
-  </div>
-</footer>
-<!-- //footer -->
+<Nav location="home" />
+
 <div class="media-info-msg">화면 사이즈를 줄여주세요.</div>
